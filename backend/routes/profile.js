@@ -65,5 +65,102 @@ Router.get("/", auth, async (req, res) => {
     }
 });
 
+//  @POST    Add experience
+//  private
+Router.post("/experience", auth, async (req, res) => {
+    try {
+        const profile = await Profile.findOne({user : req.userId});
+        
+        profile.experience.unshift(req.body);
+        await profile.save();
+        return res.status(200).json({profile});
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({msg : "Internal server error!"});
+    }
+});
+
+//  @PUT    Update experience based on experience ID
+//  private
+Router.put("/experience/:exp", auth, async (req, res) => {
+    try {
+        const profile = await Profile.findOne({user : req.userId});
+        const expId = req.params.exp;
+        const experienceIndex = profile.experience.findIndex(exp => exp._id == expId);
+        profile.experience[experienceIndex] = req.body;
+
+        await profile.save();
+        return res.status(200).json({profile});
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({msg : "Internal server error!"});
+    }
+});
+
+//  @DELETE    Delete an experience based on experience ID
+//  private
+Router.delete("/experience/:exp", auth, async (req, res) => {
+    try {
+        const profile = await Profile.findOne({user : req.userId});
+        const expId = req.params.exp;
+        const experienceIndex = profile.experience.findIndex(exp => exp._id == expId);
+        profile.experience.splice(experienceIndex, 1);
+
+        await profile.save();
+        return res.status(200).json({profile});
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({msg : "Internal server error!"});
+    }
+});
+
+//  @POST    Add education
+//  private
+Router.post("/education", auth, async (req, res) => {
+    try {
+        const profile = await Profile.findOne({user : req.userId});
+        
+        profile.education.unshift(req.body);
+        await profile.save();
+        return res.status(200).json({profile});
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({msg : "Internal server error!"});
+    }
+});
+
+//  @PUT    Update education based on education ID
+//  private
+Router.put("/education/:edu", auth, async (req, res) => {
+    try {
+        const profile = await Profile.findOne({user : req.userId});
+        const eduId = req.params.edu;
+        const educationIndex = profile.education.findIndex(edu => edu._id == eduId);
+        profile.education[educationIndex] = req.body;
+
+        await profile.save();
+        return res.status(200).json({profile});
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({msg : "Internal server error!"});
+    }
+});
+
+//  @DELETE    Delete an education based on education ID
+//  private
+Router.delete("/education/:edu", auth, async (req, res) => {
+    try {
+        const profile = await Profile.findOne({user : req.userId});
+        const eduId = req.params.edu;
+        const educationIndex = profile.education.findIndex(edu => edu._id == eduId);
+        profile.education.splice(educationIndex, 1);
+
+        await profile.save();
+        return res.status(200).json({profile});
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({msg : "Internal server error!"});
+    }
+});
 
 module.exports = Router;
