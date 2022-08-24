@@ -7,7 +7,17 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const auth = require('../middleware/auth');
 
-// GET Login Route
+// GET API Route
+Router.get("/", auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.userId).select("-password");
+        return res.status(200).json({user});
+    } catch (error) {
+        return res.status(400).json({msg: "Cannot find the user!"})
+    }
+})
+
+// POST Login Route
 Router.post("/",
     async (req, res) => {
     try {

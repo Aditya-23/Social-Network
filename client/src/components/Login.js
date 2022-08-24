@@ -1,8 +1,11 @@
 import React from 'react'
 import {Container, Row, Col, Form, Button} from "react-bootstrap"
 import {useState} from 'react'
+import {connect} from 'react-redux'
+import { loginUser } from '../actions/auth'
+import {Navigate} from 'react-router-dom'
 
-function Login() {
+function Login(props) {
   const [loginForm, setloginForm] = useState({
     email : "",
     password : ""
@@ -19,12 +22,23 @@ function Login() {
     })
   }
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    props.loginUser(loginForm);
+  }
+
+  if(props.isAuthenticated){
+    return (
+      <Navigate to="/" />
+    )
+  }
+
   return (
     <Container fluid display="flex" >
       {console.log(loginForm)}
       <Row style={{ marginTop: '50px' }}>
         <Col sm={{ span: 6, offset: 3}}>
-          <Form>
+          <form className="form" onSubmit={e => onSubmit(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="Enter email" name='email' value={loginForm.email} onChange={e => onChangeHandler(e)}/>
@@ -43,7 +57,7 @@ function Login() {
             <Button variant="primary" type="submit">
               Submit
             </Button>
-          </Form>
+          </form>
         </Col>
           
         
@@ -53,4 +67,10 @@ function Login() {
   )
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+  }
+};
+
+export default connect(mapStateToProps, {loginUser})(Login);
