@@ -29,7 +29,7 @@ function Login(props) {
 
   if(props.isAuthenticated){
     return (
-      <Navigate to="/" />
+      <Navigate to="/dashboard" />
     )
   }
 
