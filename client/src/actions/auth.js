@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { setAuthToken } from '../utils'
 import { 
+    CLEAR_PROFILE,
     LOGIN_FAIL,
     LOGIN_SUCCESS,
     LOGOUT_USER,
@@ -22,7 +23,7 @@ const loadUser = () => async dispatch => {
         if(response.status == 200){
             dispatch({
                 type: USER_AUTHENTICATED,
-                payload: response.data
+                payload: response.data.user
             })
         } else {
             dispatch({
@@ -54,6 +55,10 @@ const loginUser = (userObj) => async dispatch => {
                 type: LOGIN_SUCCESS,
                 payload: response.data
             })
+            dispatch({
+                type: USER_AUTHENTICATED,
+                payload: response.data
+            })
         } else {
             dispatch({
                 type: LOGIN_FAIL,
@@ -69,6 +74,9 @@ const loginUser = (userObj) => async dispatch => {
 }
 
 const logoutUser = () => async dispatch => {
+    dispatch({
+        type: CLEAR_PROFILE
+    })
     dispatch({
         type: LOGOUT_USER
     })

@@ -46,7 +46,13 @@ Router.post('/register',
         jwt.sign(payload, config.get('jwtSecret'), {expiresIn : 360000},
             (error, token) => {
             if(error) throw error;
-            return res.status(200).json({msg: "Registered", token})
+            const userObj = {
+                token,
+                name: user.name,
+                email: user.email,
+                gravatar: user.avatar
+            };
+            return res.status(200).json({msg: "Registered", userObj})
         })
 
         

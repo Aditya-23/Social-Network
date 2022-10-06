@@ -24,7 +24,7 @@ function Login(props) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    props.loginUser(loginForm);
+    await props.loginUser(loginForm);
   }
 
   if(props.isAuthenticated){

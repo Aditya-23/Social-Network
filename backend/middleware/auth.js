@@ -12,9 +12,11 @@ const authJwt = async (req, res, next) => {
     try {
         const verifyToken = await jwt.verify(token, config.get('jwtSecret'));
         req.userId = verifyToken.userId;
-        next(); 
+        console.log(verifyToken )
+        next();
 
     } catch (error) {
+        console.log(error)
         res.status(401).json({msg : "Token Invalid"});
     }
 }

@@ -6,7 +6,6 @@ import {logoutUser} from '../actions/auth'
 function UserNavbar(props) {
 
   const onLogoutClick = () => {
-    console.log("HEREEEE")
     props.logoutUser();
   }
 

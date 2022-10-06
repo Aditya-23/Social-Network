@@ -23,7 +23,7 @@ const auth = (state = initialState, action) => {
             localStorage.setItem('token', payload.token);
             return {
                 ...state,
-                ...payload,
+                user: payload,
                 loading: false,
                 isAuthenticated: true
             }
