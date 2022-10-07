@@ -21,11 +21,11 @@ const getProfile =  () => async dispatch => {
                 }
             })
        }
-       else if(response.status == 500 || response.status == 400 || response.status == 401){
+       else if(response.status == 400 || response.status == 401 ||response.status == 500){
             dispatch({
                 type: GET_PROFILE_ERROR,
                 payload: {
-                    error: response.msg
+                    error: response.data.msg
                 }
             })
        }

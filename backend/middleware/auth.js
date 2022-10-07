@@ -12,7 +12,7 @@ const authJwt = async (req, res, next) => {
     try {
         const verifyToken = await jwt.verify(token, config.get('jwtSecret'));
         req.userId = verifyToken.userId;
-        console.log(verifyToken )
+        
         next();
 
     } catch (error) {

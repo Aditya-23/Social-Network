@@ -5,8 +5,8 @@ import {logoutUser} from '../actions/auth'
 
 function UserNavbar(props) {
 
-  const onLogoutClick = () => {
-    props.logoutUser();
+  const onLogoutClick = async () => {
+    await props.logoutUser();
   }
 
   const loggedInLinks = (

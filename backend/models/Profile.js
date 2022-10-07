@@ -3,8 +3,7 @@ const { stringify } = require('nodemon/lib/utils');
 
 const profileSchema = new mongoose.Schema({
     user : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'user'
+        type : String,
     },
     company : {
         type : String

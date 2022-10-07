@@ -56,7 +56,9 @@ Router.put("/", auth, async (req, res) => {
 //  private   
 Router.get("/", auth, async (req, res) => {
     try {
-        const profile = await Profile.findOne({id: req.userId});
+        console.log(req.userId )
+        const profile = await Profile.findOne({user: req.userId});
+        console.log(profile)
         if(!profile)    return res.status(400).json({msg : "Could not find the profile"});
         return res.status(200).json(profile);
     } catch (error) {
