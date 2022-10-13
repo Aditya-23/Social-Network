@@ -40,4 +40,42 @@ const getProfile =  () => async dispatch => {
     }
 }
 
-export {getProfile};
+const createProfile = (profileObj) => async dispatch => {
+    const token = localStorage.getItem('token');
+    if(token){
+        setAuthToken(token);
+    }
+
+    const config = {
+        headers: {
+            'Content-Type' : "application/json"
+        }
+    };
+
+    const socialmedia = {
+        "facebook": profileObj.facebook,
+        "instagram": profileObj.instagram,
+        "youtube": profileObj.youtube,
+        "twitter": profileObj.twitter,
+        "linkedin": profileObj.linkedin
+    };
+    const profileObjToSend = {
+        socialmedia,
+        "fullName": profileObj.fullName,
+        "bio": profileObj.bio,
+        "website": profileObj.website,
+        "status": profileObj.status,
+        "github": profileObj.github,
+        "skills": profileObj.skills,
+        "company": profileObj.company,
+        "email": profileObj.email,
+    }
+    try {
+        const response = await axios.post("api/profile", profileObjToSend, config);
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export {getProfile, createProfile};

@@ -13,6 +13,8 @@ const Profile = require('../models/Profile');
 Router.post('/', auth, async (req, res) => {
     try {
         const profile = Profile();
+        const user = await User.findById(req.userId);
+        profile.fullName = user.name;
         //assign userId to profile
         profile.user = req.userId;
         profile.status = req.body.status;
@@ -23,9 +25,8 @@ Router.post('/', auth, async (req, res) => {
         if(req.body.experience)     profile.experience = req.body.experience;
         if(req.body.education)      profile.education = req.body.education;
 
-        req.body.socialmedia.map(socialmediaprofile => {
-            profile.socialmedia.push(socialmediaprofile);
-        })
+        console.log(req.body);
+        profile.socialmedia = req.body.socialmedia;
 
         //other details
         if(req.body.company)    profile.company = req.body.company;

@@ -2,8 +2,11 @@ const mongoose = require('mongoose');
 const { stringify } = require('nodemon/lib/utils');
 
 const profileSchema = new mongoose.Schema({
-    user : {
+    user : { // user id
         type : String,
+    },
+    fullName : {
+        type: String,
     },
     company : {
         type : String
@@ -76,8 +79,7 @@ const profileSchema = new mongoose.Schema({
             }
         }
     ],
-    socialmedia : [
-        {
+    socialmedia :{
             facebook : {
                 type : String
             },
@@ -93,8 +95,7 @@ const profileSchema = new mongoose.Schema({
             youtube : {
                 type : String
             }
-        }
-    ],
+        },
     date : {
         type : Date,
         default : Date.now
