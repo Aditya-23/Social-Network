@@ -27,7 +27,7 @@ const Dashboard = ({profile, auth, getProfile, ...props}) => {
           
         </h3>
         <button onClick={() => handleNavigation()}>
-            Creat Profile
+            Create Profile
         </button>
       </Fragment> 
       : 

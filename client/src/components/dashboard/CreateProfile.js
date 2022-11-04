@@ -1,9 +1,12 @@
 import React, {useState} from 'react'
 import {connect} from 'react-redux'
-import {Navigate} from 'react-router-dom'
+import {Navigate, useNavigate, withRouter} from 'react-router-dom'
 import {createProfile} from '../../actions/profile'
 
 function CreateProfile(props) {
+
+
+    const history = useNavigate();
 
     const [formData, setFormData] = useState({
         fullName: "",
@@ -33,7 +36,7 @@ function CreateProfile(props) {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
-        await props.createProfile(formData);
+        await props.createProfile(formData, history);
     }
 
     if(!props.auth.isAuthenticated){
@@ -61,12 +64,12 @@ function CreateProfile(props) {
             <form onSubmit={(e) => onSubmitHandler(e)}>
                 <div className="mb-3">
                     <label  className="form-label">Full Name</label>
-                    <input type="text" className="form-control" onChange={(e) => onChangeHandler(e)} name='fullName' value={formData.fullName}/>
+                    <input type="text" required className="form-control" onChange={(e) => onChangeHandler(e)} placeholder="Full name" name='fullName' value={formData.fullName} />
                     <div id="nameHelp" className="form-text">Firstname, Lastname</div>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Bio</label>
-                    <input type="text" className="form-control" onChange={(e) => onChangeHandler(e)} name='bio' value={formData.bio}/>
+                    <input type="text" required className="form-control" onChange={(e) => onChangeHandler(e)} name='bio' value={formData.bio}/>
                     <div id="bio" className="form-text">Add a catchy bio (Or nerdy, Don't worry, this is not a dating site!)</div>
                 </div>
                 <div className="mb-3">
@@ -81,12 +84,12 @@ function CreateProfile(props) {
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Email address</label>
-                    <input type="email" className="form-control" onChange={(e) => onChangeHandler(e)} name='email' value={formData.email}/>
+                    <input type="email" required className="form-control" onChange={(e) => onChangeHandler(e)} name='email' value={formData.email}/>
                     <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Github Username</label>
-                    <input type="github" className="form-control" onChange={(e) => onChangeHandler(e)} name='github' value={formData.github}/>
+                    <input type="github" required className="form-control" onChange={(e) => onChangeHandler(e)} name='github' value={formData.github}/>
                     <div id="github" className="form-text">Go on, Flaunt your projects!</div>
                 </div>
                 <div className="mb-3">
@@ -100,7 +103,7 @@ function CreateProfile(props) {
 
                 <div className="mb-3">
                     <label  className="form-label">Skills</label>
-                    <input type="text" className="form-control" onChange={(e) => onChangeHandler(e)} name='skills' value={formData.skills}/>
+                    <input type="text" required className="form-control" onChange={(e) => onChangeHandler(e)} name='skills' value={formData.skills}/>
                     <div id="skills" className="form-text">Add your skills in a comma separated format!</div>
                 </div>
 
@@ -118,7 +121,7 @@ function CreateProfile(props) {
 
                 <div className="mb-3">
                     <label  className="form-label">LinkedIn</label>
-                    <input type="text" className="form-control" onChange={(e) => onChangeHandler(e)} name='linkedin' value={formData.linkedin}/>
+                    <input type="text" required className="form-control" onChange={(e) => onChangeHandler(e)} name='linkedin' value={formData.linkedin}/>
                     <div id="linkedIn" className="form-text">Add your linkedin URL!</div>
                 </div>
 
@@ -130,7 +133,7 @@ function CreateProfile(props) {
 
                 <div className="mb-3">
                     <label  className="form-label">Twitter</label>
-                    <input type="text" className="form-control" onChange={(e) => onChangeHandler(e)} name='twitter' value={formData.twitter}/>
+                    <input type="text" className="form-control" onChange={(e) => onChangeHandler(e)} required name='twitter' value={formData.twitter}/>
                     <div id="twitter" className="form-text">Add your twitter URL!</div>
                 </div>
 
