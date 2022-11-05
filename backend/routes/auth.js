@@ -33,7 +33,7 @@ Router.post("/",
         if(!passwordCompare){
             return res.status(400).json({msg: "Incorrect Credentials"});
         }
-        jwt.sign(payload, config.get('jwtSecret'), {expiresIn : 360000000000},
+        jwt.sign(payload, config.get('jwtSecret'), {expiresIn : 1800},
             (error, token) => {
             if(error) throw error;
             const userObj = {

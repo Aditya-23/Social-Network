@@ -8,7 +8,7 @@ const config = require('config');
 const auth = require('../middleware/auth');
 const Profile = require('../models/Profile');
 
-// @POST    Create post
+// @POST    Create profile
 // private
 Router.post('/', auth, async (req, res) => {
     try {
@@ -25,7 +25,6 @@ Router.post('/', auth, async (req, res) => {
         if(req.body.experience)     profile.experience = req.body.experience;
         if(req.body.education)      profile.education = req.body.education;
 
-        console.log(req.body);
         profile.socialmedia = req.body.socialmedia;
 
         //other details
@@ -45,7 +44,8 @@ Router.post('/', auth, async (req, res) => {
 // private
 Router.put("/", auth, async (req, res) => {
     try {
-        const doc = await Profile.findOneAndUpdate({id: req.userId}, req.body, {new: true});
+        const doc = await Profile.findOneAndUpdate({user: req.userId}, req.body, {new: true});
+        console.log(doc);
         return res.status(200).json(doc);
     } catch (error) {
         console.log(error)
@@ -57,9 +57,7 @@ Router.put("/", auth, async (req, res) => {
 //  private   
 Router.get("/", auth, async (req, res) => {
     try {
-        console.log(req.userId )
         const profile = await Profile.findOne({user: req.userId});
-        console.log(profile)
         if(!profile)    return res.status(400).json({msg : "Could not find the profile"});
         return res.status(200).json(profile);
     } catch (error) {

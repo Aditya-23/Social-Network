@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { setAuthToken } from '../utils'
 import { setAlert } from './alert';
-import { GET_PROFILE, GET_PROFILE_ERROR } from './types';
+import { GET_PROFILE, GET_PROFILE_ERROR, LOADING, LOADING_DONE, SET_ALERT } from './types';
 
 const getProfile =  () => async dispatch => {
     const token = localStorage.getItem('token');
@@ -10,6 +10,9 @@ const getProfile =  () => async dispatch => {
     }
     
     try {
+        dispatch({
+            type:LOADING
+        });
        const response = await axios.get("api/profile"); 
 
        console.log(response)
@@ -30,6 +33,9 @@ const getProfile =  () => async dispatch => {
                 }
             })
        }
+       dispatch({
+            type:LOADING_DONE
+       })
     } catch (error) {
         console.log(error)
         dispatch({
@@ -72,7 +78,17 @@ const createProfile = (profileObj, history, edit = false) => async dispatch => {
         "email": profileObj.email,
     }
     try {
-        const response = await axios.post("api/profile", profileObjToSend, config);
+        var response;
+        dispatch({
+            type:LOADING
+        });
+        if(edit){
+            response = await axios.put("api/profile", profileObjToSend, config);
+        }
+        else{
+            response = await axios.post("api/profile", profileObjToSend, config);
+        }
+        
         console.log(response);
         dispatch({
             type: GET_PROFILE,
@@ -80,10 +96,11 @@ const createProfile = (profileObj, history, edit = false) => async dispatch => {
                 profile: response.data,
             }
         })
-
+        
         if(!edit){
-            history.push("/dashboard");
+            history("/dashboard");
         }
+        
     } catch (error) {
         console.log(error);
         const errors = error.response.data.errors;

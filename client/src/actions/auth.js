@@ -2,13 +2,15 @@ import axios from 'axios';
 import { setAuthToken } from '../utils'
 import { 
     CLEAR_PROFILE,
+    LOADING,
     LOGIN_FAIL,
     LOGIN_SUCCESS,
     LOGOUT_USER,
     REGISTER_FAIL,
     REGISTER_SUCCESS,
     USER_AUTHENTICATED,
-    USER_AUTHENTICATION_FAILED
+    USER_AUTHENTICATION_FAILED,
+    LOADING_DONE
    } from './types';
 
 //Get user details by passing a token, return null if token isn't present in the local storage.
@@ -19,6 +21,9 @@ const loadUser = () => async dispatch => {
     }
     
     try {
+        dispatch({
+            type:LOADING
+        })
         const response = await axios.get("api/auth/");
         if(response.status == 200){
             dispatch({
@@ -31,6 +36,9 @@ const loadUser = () => async dispatch => {
                 payload: null
             })
         }
+        dispatch({
+            type:LOADING_DONE
+       })
     } catch (error) {
         dispatch({
             type: USER_AUTHENTICATION_FAILED,

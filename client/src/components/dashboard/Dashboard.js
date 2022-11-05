@@ -1,27 +1,37 @@
 import React, { Fragment, useEffect } from 'react';
+import { Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link, Navigate, Route, useNavigate } from 'react-router-dom';
 import { getProfile } from '../../actions/profile';
 import CreateProfile from './CreateProfile';
 
 
-const Dashboard = ({profile, auth, getProfile, ...props}) => {
+const Dashboard = ({profileReducer, auth, getProfile, ...props}) => {
 
   let navigate = useNavigate();
-  useEffect(() => {
-    getProfile();
+  useEffect( () => {
+   getProfile();
   }, []);
 
   const handleNavigation = () => {
-    navigate("/create-profile");
+    if(profileReducer.profile){
+      navigate("/edit-profile");
+    }else{
+      navigate("/create-profile");
+    }
+    
   }
-
+  if(profileReducer.loading || auth.loading){
+    return (<Fragment>
+      <Spinner/>
+    </Fragment>)
+  }
   return (
     <div className="container">
       <h2>
         Welcome to DevSoc, {auth.user.name}
       </h2>
-      {profile == null ? <Fragment>
+      {profileReducer.profile == null ? <Fragment>
         <h3>
           You haven't created a profile yet, Create now :
           
@@ -32,7 +42,9 @@ const Dashboard = ({profile, auth, getProfile, ...props}) => {
       </Fragment> 
       : 
       <Fragment>
-        
+        <button onClick={() => handleNavigation()}>
+            Edit Profile
+        </button>
       </Fragment>}
     </div>
   )
@@ -40,7 +52,7 @@ const Dashboard = ({profile, auth, getProfile, ...props}) => {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  profile: state.profileReducer.profile,
+  profileReducer: state.profileReducer,
 });
 
 export default connect(mapStateToProps, {getProfile})(Dashboard);

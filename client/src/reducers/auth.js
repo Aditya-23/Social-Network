@@ -5,7 +5,9 @@ import {
     USER_AUTHENTICATED,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
-    LOGOUT_USER
+    LOGOUT_USER,
+    LOADING,
+    LOADING_DONE
 } from '../actions/types'
 
 const initialState = {
@@ -18,6 +20,16 @@ const initialState = {
 const auth = (state = initialState, action) => {
     const { type, payload } = action;
     switch(type){
+        case LOADING:
+            return {
+                ...state,
+                loading: true
+            }
+        case LOADING_DONE:
+            return {
+                ...state,
+                loading: false,
+            }
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
             localStorage.setItem('token', payload.token);

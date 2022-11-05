@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import {Navigate, useNavigate, withRouter} from 'react-router-dom'
 import {createProfile} from '../../actions/profile'
 
-function CreateProfile(props) {
+function EditProfile(props) {
 
 
     const history = useNavigate();
@@ -34,9 +34,28 @@ function CreateProfile(props) {
         });
     }
 
+    useEffect(() => {
+        console.log(props.profile);
+        setFormData({
+            fullName: props.profile.fullName,
+            email: props.profile.email,
+            website: props.profile.website,
+            bio: props.profile.bio,
+            company: props.profile.company,
+            github: props.profile.github,
+            skills: props.profile.skills,
+            facebook: props.profile.socialmedia.facebook,
+            instagram: props.profile.socialmedia.instagram,
+            twitter: props.profile.socialmedia.twitter,
+            linkedin: props.profile.socialmedia.linkedin,
+            youtube: props.profile.socialmedia.youtube,
+            status: props.profile.status,
+        })
+    }, [])
+
     const onSubmitHandler = async (e) => {
         e.preventDefault();
-        await props.createProfile(formData, history);
+        await props.createProfile(formData, history, true);
     }
 
     if(!props.auth.isAuthenticated){
@@ -55,6 +74,7 @@ function CreateProfile(props) {
 
   return (
     <div className='container'>
+        {console.log(formData)}
         <div className="row">
             <h3>
             Please fill the form to create a profile! 
@@ -137,7 +157,7 @@ function CreateProfile(props) {
                 </div>
 
                 
-                <button type="submit" className="btn btn-primary">Create Profile</button>
+                <button type="submit" className="btn btn-primary">Edit Profile</button>
             </form>
             </div>
             <div className='col'>
@@ -151,7 +171,8 @@ function CreateProfile(props) {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
+    profile: state.profileReducer.profile,
   }
 };
 
-export default connect (mapStateToProps, {createProfile})(CreateProfile);
+export default connect (mapStateToProps, {createProfile})(EditProfile);

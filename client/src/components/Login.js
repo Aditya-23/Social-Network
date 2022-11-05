@@ -1,5 +1,5 @@
-import React from 'react'
-import {Container, Row, Col, Form, Button} from "react-bootstrap"
+import React, { Fragment } from 'react'
+import {Container, Row, Col, Form, Button, Spinner} from "react-bootstrap"
 import {useState} from 'react'
 import {connect} from 'react-redux'
 import { loginUser } from '../actions/auth'
@@ -27,11 +27,19 @@ function Login(props) {
     await props.loginUser(loginForm);
   }
 
-  if(props.isAuthenticated){
+  if(props.auth.loading){
+    return (<Fragment>
+      <Spinner/>
+    </Fragment>) 
+  }
+
+  if(props.auth.isAuthenticated){
     return (
       <Navigate to="/dashboard" />
     )
   }
+
+  
 
   return (
     <Container fluid display="flex" >
@@ -69,7 +77,7 @@ function Login(props) {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated,
+    auth: state.auth,
   }
 };
 
