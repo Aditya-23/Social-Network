@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { setAuthToken } from '../utils'
 import { setAlert } from './alert';
-import { GET_PROFILE, GET_PROFILE_ERROR, LOADING, LOADING_DONE, SET_ALERT } from './types';
+import { GET_PROFILE, GET_PROFILE_ERROR, LOADING, LOADING_DONE, REMOVE_ALERT, SET_ALERT } from './types';
 
 const getProfile =  () => async dispatch => {
     const token = localStorage.getItem('token');
@@ -96,6 +96,19 @@ const createProfile = (profileObj, history, edit = false) => async dispatch => {
                 profile: response.data,
             }
         })
+
+
+        dispatch({
+            type: LOADING_DONE
+        })
+
+        dispatch({
+            type: SET_ALERT,
+            payload: {
+                msg: "Updated profile succesfully!",
+                alertType: "success"
+            }
+        })
         
         if(!edit){
             history("/dashboard");
@@ -103,11 +116,6 @@ const createProfile = (profileObj, history, edit = false) => async dispatch => {
         
     } catch (error) {
         console.log(error);
-        const errors = error.response.data.errors;
-
-        errors.forEach(err => {
-            dispatch(setAlert(err.msg, "danger"));
-        });
     }
 }
 

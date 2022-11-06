@@ -25,8 +25,11 @@ const profileSchema = new mongoose.Schema({
         type : [String],
         required : true
     },
-    githubusername : {
+    github : {
         type : String
+    },
+    email: {
+        type: String
     },
     experience : [
         {

@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {connect} from 'react-redux'
 import {Navigate, useNavigate, withRouter} from 'react-router-dom'
 import {createProfile} from '../../actions/profile'
+import {removeAlert} from '../../actions/alert'
 
 function CreateProfile(props) {
 
@@ -53,9 +54,18 @@ function CreateProfile(props) {
         )
     }
 
+    const alertCloseButton = () => {
+        props.removeAlert();
+    }
+
   return (
     <div className='container'>
         <div className="row">
+            {props.alert.msg != null ? 
+                <div className="alert alert-success alert-dismissible fade show" role="alert">
+                    {props.alert.msg}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() => alertCloseButton()}></button>
+                </div> : null}
             <h3>
             Please fill the form to create a profile! 
             </h3>
@@ -154,4 +164,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect (mapStateToProps, {createProfile})(CreateProfile);
+export default connect (mapStateToProps, {createProfile, removeAlert})(CreateProfile);

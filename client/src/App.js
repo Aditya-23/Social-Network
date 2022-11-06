@@ -8,7 +8,6 @@ import UserNavbar from './components/Navbar';
 import Landing from './components/Landing';
 import store from './store'
 import { Provider } from 'react-redux';
-import AlertComp from './components/Alert'
 import {loadUser} from './actions/auth'
 import { setAuthToken } from './utils';
 import Dashboard from './components/dashboard/Dashboard';
@@ -29,7 +28,6 @@ const App = () => {
     <Provider store={store}>
     <BrowserRouter>
       <UserNavbar/>
-      <AlertComp/>
       <Routes>
         <Route exact path='/' element={<Landing/>}/>
         <Route exact path ="/login" element={<Login/>}/>

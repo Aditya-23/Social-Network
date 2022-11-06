@@ -4,6 +4,9 @@ import {useState} from 'react'
 import {connect} from 'react-redux'
 import { loginUser } from '../actions/auth'
 import {Navigate} from 'react-router-dom'
+import store from '../store'
+import { REMOVE_ALERT } from '../actions/types'
+import { removeAlert } from '../actions/alert'
 
 function Login(props) {
   const [loginForm, setloginForm] = useState({
@@ -39,11 +42,17 @@ function Login(props) {
     )
   }
 
-  
+  const alertCloseButton = () => {
+    props.removeAlert();
+  }
 
   return (
     <Container fluid display="flex" >
-      {console.log(loginForm)}
+      {props.alert.msg != null ? 
+      <div className="alert alert-danger alert-dismissible fade show" role="alert">
+        {props.alert.msg}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() => alertCloseButton()}></button>
+      </div> : null}      
       <Row style={{ marginTop: '50px' }}>
         <Col sm={{ span: 6, offset: 3}}>
           <form className="form" onSubmit={e => onSubmit(e)}>
@@ -78,7 +87,8 @@ function Login(props) {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
+    alert: state.alertReducer
   }
 };
 
-export default connect(mapStateToProps, {loginUser})(Login);
+export default connect(mapStateToProps, {loginUser, removeAlert})(Login);

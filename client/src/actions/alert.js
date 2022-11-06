@@ -1,21 +1,18 @@
-import { v4 } from 'uuid';
+import { REMOVE_ALERT, SET_ALERT } from './types';
 
-export const setAlert = (message, alertType) => dispatch => {
-    const id = v4();
+export const setAlert = (message, alertType) => async dispatch => {
+    console.log("aseaehyags")
     dispatch({
-        type : 'SET_ALERT',
+        type : SET_ALERT,
         payload : {
-            id,
-            message,
-            alertType
+            msg: message,
+            alertType: alertType
         }
     });
-    setTimeout(() => dispatch({
-        type : 'REMOVE_ALERT',
-        payload : {
-            id,
-            message,
-            alertType
-        }
-    }), 5000);
 };
+
+export const removeAlert = () => dispatch => {
+    dispatch({
+        type: REMOVE_ALERT,
+    })
+}

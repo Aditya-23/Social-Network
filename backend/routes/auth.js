@@ -24,14 +24,14 @@ Router.post("/",
         const {email, password} = req.body;
         const user = await User.findOne({email: email});
         if(!user){
-            return res.status(400).json({msg : "Incorrect Credentials"})
+            return res.status(401).json({msg : "Incorrect Credentials"})
         }
         const payload = {
             userId : user.id
         }
         const passwordCompare = await bcryptjs.compare(req.body.password, user.password);
         if(!passwordCompare){
-            return res.status(400).json({msg: "Incorrect Credentials"});
+            return res.status(401).json({msg: "Incorrect Credentials"});
         }
         jwt.sign(payload, config.get('jwtSecret'), {expiresIn : 1800},
             (error, token) => {
@@ -46,7 +46,7 @@ Router.post("/",
         })     
     } catch (error) {
         console.log(error);
-        return res.status(400).json({msg: "Server Error!"})
+        return res.status(500).json({msg: "Server Error!"})
     }
 });
 

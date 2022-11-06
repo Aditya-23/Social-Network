@@ -20,6 +20,8 @@ Router.post('/', auth, async (req, res) => {
         profile.status = req.body.status;
         // required, converting csv to a list of skills and trimming it
         profile.skills = req.body.skills.split(',').map(skill => skill.trim()); 
+        profile.email = user.email;
+        profile.github = req.body.github;
 
         //adding experience and education 
         if(req.body.experience)     profile.experience = req.body.experience;

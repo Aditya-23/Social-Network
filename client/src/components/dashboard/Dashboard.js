@@ -42,9 +42,24 @@ const Dashboard = ({profileReducer, auth, getProfile, ...props}) => {
       </Fragment> 
       : 
       <Fragment>
-        <button onClick={() => handleNavigation()}>
-            Edit Profile
-        </button>
+        <div className='container'>
+          <div className='row justify-content-start'>
+            <div className='col-2'>
+              <button onClick={() => handleNavigation()}>
+                    View Profile
+              </button>
+            </div>
+            <div className='col-2'>
+              <button onClick={() => handleNavigation()}>
+                    Edit Profile
+              </button>
+            </div>
+              
+          </div>
+          
+          
+        </div>
+        
       </Fragment>}
     </div>
   )

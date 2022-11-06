@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { setAuthToken } from '../utils'
+import { setAlert } from './alert';
 import { 
     CLEAR_PROFILE,
     LOADING,
@@ -10,7 +11,8 @@ import {
     REGISTER_SUCCESS,
     USER_AUTHENTICATED,
     USER_AUTHENTICATION_FAILED,
-    LOADING_DONE
+    LOADING_DONE,
+    SET_ALERT
    } from './types';
 
 //Get user details by passing a token, return null if token isn't present in the local storage.
@@ -29,17 +31,20 @@ const loadUser = () => async dispatch => {
             dispatch({
                 type: USER_AUTHENTICATED,
                 payload: response.data.user
-            })
+            });
         } else {
+            
             dispatch({
                 type: USER_AUTHENTICATION_FAILED,
                 payload: null
-            })
+            });
+            
         }
         dispatch({
             type:LOADING_DONE
        })
     } catch (error) {
+        
         dispatch({
             type: USER_AUTHENTICATION_FAILED,
             payload: null
@@ -62,21 +67,23 @@ const loginUser = (userObj) => async dispatch => {
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: response.data
-            })
+            });
             dispatch({
                 type: USER_AUTHENTICATED,
                 payload: response.data
-            })
-        } else {
-            dispatch({
-                type: LOGIN_FAIL,
-                payload: null
-            })
+            });
         }
-    } catch (error) {
+    } catch (AxiosError) {
         dispatch({
             type: LOGIN_FAIL,
             payload: null
+        });
+        dispatch({
+            type: SET_ALERT,
+            payload: {
+                msg: "Incorrect email or password!",
+                alertType: "danger"
+            }
         })
     }
 }
