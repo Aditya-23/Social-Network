@@ -1,41 +1,48 @@
 import axios from 'axios';
-import { setAuthToken } from '../utils'
-import { setAlert } from './alert';
-import { GET_PROFILE, GET_PROFILE_ERROR, LOADING, LOADING_DONE, REMOVE_ALERT, SET_ALERT } from './types';
+import {useNavigate} from 'react-router-dom';
+import {setAuthToken} from '../utils'
+import {setAlert} from './alert';
+import {
+    CREATE_EDUCATION,
+    CREATE_EDUCATION_FAILED,
+    CREATE_EXPERIENCE,
+    CREATE_EXPERIENCE_FAILED,
+    GET_PROFILE,
+    GET_PROFILE_ERROR,
+    LOADING,
+    LOADING_DONE,
+    REMOVE_ALERT,
+    SET_ALERT
+} from './types';
 
-const getProfile =  () => async dispatch => {
+const getProfile = () => async dispatch => {
     const token = localStorage.getItem('token');
-    if(token){
+    if (token) {
         setAuthToken(token);
     }
-    
+
     try {
-        dispatch({
-            type:LOADING
-        });
-       const response = await axios.get("api/profile"); 
+        dispatch({type: LOADING});
+        const response = await axios.get("api/profile");
 
-       console.log(response)
+        console.log(response)
 
-       if(response.status == 200) {
+        if (response.status == 200) {
             dispatch({
                 type: GET_PROFILE,
                 payload: {
                     profile: response.data
                 }
             })
-       }
-       else if(response.status == 400 || response.status == 401 ||response.status == 500){
+        } else if (response.status == 400 || response.status == 401 || response.status == 500) {
             dispatch({
                 type: GET_PROFILE_ERROR,
                 payload: {
                     error: response.data.msg
                 }
             })
-       }
-       dispatch({
-            type:LOADING_DONE
-       })
+        }
+        dispatch({type: LOADING_DONE})
     } catch (error) {
         console.log(error)
         dispatch({
@@ -49,13 +56,13 @@ const getProfile =  () => async dispatch => {
 
 const createProfile = (profileObj, history, edit = false) => async dispatch => {
     const token = localStorage.getItem('token');
-    if(token){
+    if (token) {
         setAuthToken(token);
     }
 
     const config = {
         headers: {
-            'Content-Type' : "application/json"
+            'Content-Type': "application/json"
         }
     };
 
@@ -75,48 +82,108 @@ const createProfile = (profileObj, history, edit = false) => async dispatch => {
         "github": profileObj.github,
         "skills": profileObj.skills,
         "company": profileObj.company,
-        "email": profileObj.email,
+        "email": profileObj.email
     }
     try {
         var response;
-        dispatch({
-            type:LOADING
-        });
-        if(edit){
+        dispatch({type: LOADING});
+        if (edit) {
             response = await axios.put("api/profile", profileObjToSend, config);
-        }
-        else{
+        } else {
             response = await axios.post("api/profile", profileObjToSend, config);
         }
-        
-        console.log(response);
+
         dispatch({
             type: GET_PROFILE,
             payload: {
-                profile: response.data,
+                profile: response.data
             }
-        })
+        });
 
-
-        dispatch({
-            type: LOADING_DONE
-        })
+        dispatch({type: LOADING_DONE});
 
         dispatch({
             type: SET_ALERT,
             payload: {
-                msg: "Updated profile succesfully!",
+                msg: "Updated profile successfully!",
                 alertType: "success"
             }
-        })
-        
-        if(!edit){
+        });
+
+        if (!edit) {
             history("/dashboard");
         }
-        
+
     } catch (error) {
         console.log(error);
+        dispatch({
+            type: GET_PROFILE_ERROR,
+            payload: {
+                profile: null
+            }
+        });
+        dispatch({type: LOADING_DONE});
     }
 }
 
-export {getProfile, createProfile};
+const addEducation = (educationObj) => async dispatch => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        setAuthToken(token);
+    }
+
+    const config = {
+        headers: {
+            'Content-Type': "application/json"
+        }
+    };
+
+    try {
+        dispatch({type: LOADING});
+        const response = await axios.post("api/profile/education", educationObj, config);
+        dispatch({type: CREATE_EDUCATION, payload: response.data});
+        dispatch({type: LOADING_DONE});
+        dispatch({
+            type: SET_ALERT,
+            payload: {
+                msg: "Added education successfully",
+                alertType: "success"
+            }
+        });
+    } catch (AxiosError) {
+        dispatch({type: CREATE_EDUCATION_FAILED});
+        dispatch({type: LOADING_DONE});
+    }
+}
+
+const addExperience = (experienceObj) => async dispatch => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        setAuthToken(token);
+    }
+
+    const config = {
+        headers: {
+            'Content-Type': "application/json"
+        }
+    };
+
+    try {
+        dispatch({type: LOADING});
+        const response = await axios.post("api/profile/experience", experienceObj, config);
+        dispatch({type: CREATE_EXPERIENCE, payload: response.data});
+        dispatch({type: LOADING_DONE});
+        dispatch({
+            type: SET_ALERT,
+            payload: {
+                msg: "Added experience successfully",
+                alertType: "success"
+            }
+        });
+    } catch (AxiosError) {
+        dispatch({type: CREATE_EXPERIENCE_FAILED});
+        dispatch({type: LOADING_DONE});
+    }
+}
+
+export {getProfile, createProfile, addEducation, addExperience};

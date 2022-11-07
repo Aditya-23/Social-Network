@@ -7,53 +7,62 @@ import Register from './components/Register';
 import UserNavbar from './components/Navbar';
 import Landing from './components/Landing';
 import store from './store'
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import {loadUser} from './actions/auth'
-import { setAuthToken } from './utils';
+import {setAuthToken} from './utils';
 import Dashboard from './components/dashboard/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 import CreateProfile from './components/dashboard/CreateProfile';
 import EditProfile from './components/dashboard/EditProfile';
+import AddEducation from './components/dashboard/AddEducation';
+import AddExperience from './components/dashboard/AddExperience';
 
-if(localStorage.token){
-  setAuthToken(localStorage.token)
+if (localStorage.token) {
+    setAuthToken(localStorage.token)
 }
 
 const App = () => {
-  useEffect(() => {
-    store.dispatch(loadUser());
-  }, [])
+    useEffect(() => {
+        store.dispatch(loadUser());
+    }, [])
 
-  return (
-    <Provider store={store}>
-    <BrowserRouter>
-      <UserNavbar/>
-      <Routes>
-        <Route exact path='/' element={<Landing/>}/>
-        <Route exact path ="/login" element={<Login/>}/>
-        <Route exact path ="/register" element={<Register/>}/>
-        
-        <Route exact path ="/dashboard" 
-        element={
-        <PrivateRoute>
-          <Dashboard/>
-        </PrivateRoute>}/>
+    return (
+        <Provider store={store}>
+            <BrowserRouter>
+                <UserNavbar/>
+                <Routes>
+                    <Route exact path='/' element={< Landing />}/>
+                    <Route exact path="/login" element={< Login />}/>
+                    <Route exact path="/register" element={< Register />}/>
 
-        <Route exact path ="/create-profile" 
-        element={
-        <PrivateRoute>
-          <CreateProfile/>
-        </PrivateRoute>}/>
-        <Route exact path ="/edit-profile" 
-        element={
-        <PrivateRoute>
-          <EditProfile/>
-        </PrivateRoute>}/>
-      </Routes>
-      
-    </BrowserRouter>
-    </Provider>
-  );
+                    <Route
+                        exact
+                        path="/dashboard"
+                        element={< PrivateRoute > <Dashboard/> </PrivateRoute>}/>
+
+                    <Route
+                        exact
+                        path="/add-education"
+                        element={< PrivateRoute > <AddEducation/> </PrivateRoute>}/>
+
+                    <Route
+                        exact
+                        path="/add-experience"
+                        element={< PrivateRoute > <AddExperience/> </PrivateRoute>}/>
+
+                    <Route
+                        exact
+                        path="/create-profile"
+                        element={< PrivateRoute > <CreateProfile/> </PrivateRoute>}/>
+                    <Route
+                        exact
+                        path="/edit-profile"
+                        element={< PrivateRoute > <EditProfile/> </PrivateRoute>}/>
+                </Routes>
+
+            </BrowserRouter>
+        </Provider>
+    );
 };
 
 export default App;
