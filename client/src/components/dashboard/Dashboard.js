@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Link, Navigate, Route, useNavigate} from 'react-router-dom';
 import {getProfile} from '../../actions/profile';
 import CreateProfile from './CreateProfile';
+import Experience from './Experience';
 
 const Dashboard = ({
     profileReducer,
@@ -51,22 +52,22 @@ const Dashboard = ({
                     <div className='container'>
                         <div className='row justify-content-start'>
                             <div className='col-2'>
-                                <button onClick={() => handleNavigation()}>
+                                <button className='btn btn-success' onClick={() => handleNavigation()}>
                                     View Profile
                                 </button>
                             </div>
                             <div className='col-2'>
-                                <button onClick={() => handleNavigation()}>
+                                <button className='btn btn-success' onClick={() => handleNavigation()}>
                                     Edit Profile
                                 </button>
                             </div>
                             <div className='col-2'>
-                                <button onClick={() => navigate("/add-education")}>
+                                <button className='btn btn-success' onClick={() => navigate("/add-education")}>
                                     Add education
                                 </button>
                             </div>
                             <div className='col-2'>
-                                <button onClick={() => navigate("/add-experience")}>
+                                <button className='btn btn-success' onClick={() => navigate("/add-experience")}>
                                     Add experience
                                 </button>
                             </div>
@@ -76,7 +77,12 @@ const Dashboard = ({
                     </div>
 
                 </Fragment>
-        } 
+        }
+        <br></br>
+        <h2>
+            Experiences
+        </h2>
+        <Experience/>
         </div>
     )
 }
