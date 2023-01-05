@@ -5,6 +5,7 @@ import {Link, Navigate, Route, useNavigate} from 'react-router-dom';
 import {getProfile} from '../../actions/profile';
 import store from '../../store';
 import CreateProfile from './CreateProfile';
+import Education from './Education';
 import Experience from './Experience';
 
 const Dashboard = ({
@@ -84,6 +85,10 @@ const Dashboard = ({
             Experiences
         </h2>
         <Experience experiences={profileReducer.profile.experience} />
+        <h2>
+            Education
+        </h2>
+        <Education education={profileReducer.profile.education} />
         </div>
     )
 }

@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-function Experience(props) {
+function Education(props) {
 
   const getDateString = (dateTimeStr) => {
     return dateTimeStr.split("T")[0]
   }
 
-  const experiences = props.experiences.map(experience => (
+  const education = props.education.map(ed => (
     <tr>
-      <td>{experience.company}</td>
-      <td>{experience.title}</td>
-      <td>{getDateString(experience.from)}</td>
-      <td>{getDateString(experience.to)}</td>
+      <td>{ed.school}</td>
+      <td>{ed.degree}</td>
+      <td>{getDateString(ed.from)}</td>
+      <td>{getDateString(ed.to)}</td>
     </tr>
   ))
 
@@ -24,14 +24,14 @@ function Experience(props) {
           <table className='table'>
             <thead>
               <tr>
-                <th>Company</th>
-                <th>Title</th>
+                <th>School</th>
+                <th>Degree</th>
                 <th>From</th>
                 <th>To</th>
               </tr>
             </thead>
             <tbody>
-              {experiences}
+              {education}
             </tbody>
           </table>
         </div>
@@ -40,4 +40,4 @@ function Experience(props) {
   );
 }
 
-export default Experience;
+export default Education;
