@@ -25,8 +25,6 @@ const getProfile = () => async dispatch => {
         dispatch({type: LOADING});
         const response = await axios.get("api/profile");
 
-        console.log(response)
-
         if (response.status == 200) {
             dispatch({
                 type: GET_PROFILE,

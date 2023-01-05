@@ -3,7 +3,7 @@ import {Container, Row, Col, Form, Button, Spinner} from "react-bootstrap"
 import {useState} from 'react'
 import {connect} from 'react-redux'
 import { loginUser } from '../actions/auth'
-import {Navigate} from 'react-router-dom'
+import {Navigate, useNavigate} from 'react-router-dom'
 import store from '../store'
 import { REMOVE_ALERT } from '../actions/types'
 import { removeAlert } from '../actions/alert'
@@ -14,6 +14,7 @@ function Login(props) {
     password : ""
   })
 
+  const navigate = useNavigate();
   const onChangeHandler = (e) => {
     setloginForm((form) => {
       return (
@@ -37,9 +38,7 @@ function Login(props) {
   }
 
   if(props.auth.isAuthenticated){
-    return (
-      <Navigate to="/dashboard" />
-    )
+    navigate("/dashboard");
   }
 
   const alertCloseButton = () => {

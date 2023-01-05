@@ -19,6 +19,8 @@ function AddEducation(props) {
         });
     }
 
+    const navigate = useNavigate();
+
     const onSubmitHandler = async(e) => {
         e.preventDefault();
         await props.addEducation(formData);

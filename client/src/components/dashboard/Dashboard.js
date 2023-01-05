@@ -1,8 +1,9 @@
 import React, {Fragment, useEffect} from 'react';
 import {Spinner} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import {Link, Navigate, Route, useNavigate} from 'react-router-dom';
 import {getProfile} from '../../actions/profile';
+import store from '../../store';
 import CreateProfile from './CreateProfile';
 import Experience from './Experience';
 
@@ -15,6 +16,7 @@ const Dashboard = ({
 
     let navigate = useNavigate();
     useEffect(() => {
+        console.log("Dashboard useEffect called");
         getProfile();
     }, []);
 
@@ -24,7 +26,6 @@ const Dashboard = ({
         } else {
             navigate("/create-profile");
         }
-
     }
     if (profileReducer.loading || auth.loading) {
         return (
@@ -82,7 +83,7 @@ const Dashboard = ({
         <h2>
             Experiences
         </h2>
-        <Experience/>
+        <Experience experiences={profileReducer.profile.experience} />
         </div>
     )
 }
