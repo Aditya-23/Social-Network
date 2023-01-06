@@ -207,4 +207,25 @@ const deleteExperience = (id) => async dispatch => {
     }
 }
 
-export {getProfile, createProfile, addEducation, addExperience, deleteExperience};
+const deleteEducation = (id) => async dispatch => {
+    try {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setAuthToken(token);
+        }
+        dispatch({type: LOADING});
+        const response = await axios.delete("api/profile/education/" + id);
+        if(response.status == 200){
+            dispatch({
+                type: UPDATE_PROFILE,
+                payload: response.data
+            });
+        }
+        dispatch({type: LOADING_DONE});
+
+    } catch (AxiosError) {
+        dispatch({type: LOADING_DONE});
+    }
+}
+
+export {getProfile, createProfile, addEducation, addExperience, deleteExperience, deleteEducation};

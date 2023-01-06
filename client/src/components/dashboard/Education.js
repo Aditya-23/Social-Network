@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { deleteEducation } from '../../actions/profile';
 
 function Education(props) {
 
@@ -8,7 +9,7 @@ function Education(props) {
   }
 
   const onDeleteHandler =  (id) => {
-    props.deleteExperience(id);
+    props.deleteEducation(id);
  }
 
   const education = props.education.map(ed => (
@@ -45,4 +46,4 @@ function Education(props) {
   );
 }
 
-export default Education;
+export default connect(null, {deleteEducation}) (Education);
