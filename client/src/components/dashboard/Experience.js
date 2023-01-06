@@ -1,10 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { deleteExperience } from '../../actions/profile';
 
 function Experience(props) {
 
   const getDateString = (dateTimeStr) => {
     return dateTimeStr.split("T")[0]
+  }
+
+  const onDeleteHandler =  (id) => {
+     props.deleteExperience(id);
   }
 
   const experiences = props.experiences.map(experience => (
@@ -13,12 +18,12 @@ function Experience(props) {
       <td>{experience.title}</td>
       <td>{getDateString(experience.from)}</td>
       <td>{getDateString(experience.to)}</td>
+      <td><button type='button' onClick={() => onDeleteHandler(experience._id)} className='btn btn-danger'>Delete</button></td>
     </tr>
   ))
 
   return (
     <div className='container'>
-      {console.log(props.experiences)}
       <div className='row'>
         <div className='col-8'>
           <table className='table'>
@@ -40,4 +45,4 @@ function Experience(props) {
   );
 }
 
-export default Experience;
+export default connect (null, {deleteExperience})(Experience);

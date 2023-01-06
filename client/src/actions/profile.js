@@ -12,7 +12,8 @@ import {
     LOADING,
     LOADING_DONE,
     REMOVE_ALERT,
-    SET_ALERT
+    SET_ALERT,
+    UPDATE_PROFILE
 } from './types';
 
 const getProfile = () => async dispatch => {
@@ -184,4 +185,26 @@ const addExperience = (experienceObj) => async dispatch => {
     }
 }
 
-export {getProfile, createProfile, addEducation, addExperience};
+const deleteExperience = (id) => async dispatch => {
+    try {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setAuthToken(token);
+        }
+        dispatch({type: LOADING});
+        const response = await axios.delete("api/profile/experience/" + id);
+        // const profileResponse = await axios.get("api/profile");
+        if(response.status == 200){
+            dispatch({
+                type: UPDATE_PROFILE,
+                payload: response.data
+            });
+        }
+        dispatch({type: LOADING_DONE});
+
+    } catch (AxiosError) {
+        dispatch({type: LOADING_DONE});
+    }
+}
+
+export {getProfile, createProfile, addEducation, addExperience, deleteExperience};

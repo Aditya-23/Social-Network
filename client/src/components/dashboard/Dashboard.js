@@ -84,11 +84,12 @@ const Dashboard = ({
         <h2>
             Experiences
         </h2>
-        <Experience experiences={profileReducer.profile.experience} />
+        {profileReducer.profile != null ? <Experience experiences={profileReducer.profile.experience} /> : null}
         <h2>
             Education
         </h2>
-        <Education education={profileReducer.profile.education} />
+        {profileReducer.profile != null ? <Education education={profileReducer.profile.education} /> : null}
+        
         </div>
     )
 }

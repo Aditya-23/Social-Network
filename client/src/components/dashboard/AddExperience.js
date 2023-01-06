@@ -18,7 +18,6 @@ function AddExperience(props) {
     })
 
     const onChangeHandler = (e) => {
-        console.log(e.target)
         setFormData(formData => {
             return ({
                 ...formData,

@@ -7,7 +7,9 @@ import {
     GET_PROFILE_ERROR,
     LOADING,
     CREATE_EXPERIENCE_FAILED,
-    LOADING_DONE
+    LOADING_DONE,
+    UPDATE_PROFILE
+
 } from '../actions/types';
 
 const initialState = {
@@ -81,6 +83,14 @@ const profileReducer = (state = initialState, action) => {
                 loading: false,
                 profile: null
             }  
+        
+        case UPDATE_PROFILE: {
+            return {
+                ...state,
+                profile: payload.profile,
+                loading: false
+            }
+        }
               
         default:
             return state;

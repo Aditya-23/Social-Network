@@ -7,18 +7,23 @@ function Education(props) {
     return dateTimeStr.split("T")[0]
   }
 
+  const onDeleteHandler =  (id) => {
+    props.deleteExperience(id);
+ }
+
   const education = props.education.map(ed => (
     <tr>
       <td>{ed.school}</td>
       <td>{ed.degree}</td>
       <td>{getDateString(ed.from)}</td>
       <td>{getDateString(ed.to)}</td>
+      <td><button type='button' onClick={() => onDeleteHandler(ed._id)} className='btn btn-danger'>Delete</button></td>
+
     </tr>
   ))
 
   return (
     <div className='container'>
-      {console.log(props.experiences)}
       <div className='row'>
         <div className='col-8'>
           <table className='table'>
