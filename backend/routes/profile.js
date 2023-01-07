@@ -73,6 +73,21 @@ Router.put("/", auth, async(req, res) => {
     }
 });
 
+Router.get("/profiles", async(req, res) => {
+    try {
+        const profiles = await Profile.find();
+        console.log(profiles)
+        return res
+            .status(200)
+            .json(profiles);
+    } catch (error) {
+        console.log(error)
+        return res
+            .status(500)
+            .json({msg: "Internal server error!"});
+    }
+})
+
 //  @GET    Get a profile using the user Id.  private
 Router.get("/", auth, async(req, res) => {
     try {
@@ -228,22 +243,26 @@ Router.get("/github/:userName", async(req, res) => {
     const clientSecret = config.get("clientSecret");
     try {
         const config = {
-            uri: `https://api.github.com/users/${req
-                .params
-                .userName}/repos?per_page=5&sort=created:asc&client_id=${clientId}&client_secret=${clientSecret}`,
+            uri: `https://api.github.com/users/${req.params.userName}/repos?per_page=5&sort=created:asc&client_id=${clientId}&client_secret=${clientSecret}`,
             method: "GET",
-            headers: { "user-agent": "node.js"}
+            headers: {
+                "user-agent": "node.js"
+            }
         }
 
         request(config, (error, response, body) => {
-            if(error){
+            if (error) {
                 console.log(error);
             }
-            if(response.status != 200){
-                return res.status(500).json({msg: "No public repositories found"});
+            if (response.status != 200) {
+                return res
+                    .status(500)
+                    .json({msg: "No public repositories found"});
             }
 
-            return res.status(200).json(JSON.parse(body));
+            return res
+                .status(200)
+                .json(JSON.parse(body));
         })
     } catch (error) {
         console.log(error)

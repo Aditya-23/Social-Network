@@ -8,6 +8,7 @@ import {
     CREATE_EXPERIENCE,
     CREATE_EXPERIENCE_FAILED,
     GET_PROFILE,
+    GET_PROFILES,
     GET_PROFILE_ERROR,
     LOADING,
     LOADING_DONE,
@@ -16,7 +17,7 @@ import {
     UPDATE_PROFILE
 } from './types';
 
-const getProfile = () => async dispatch => {
+export const getProfile = () => async dispatch => {
     const token = localStorage.getItem('token');
     if (token) {
         setAuthToken(token);
@@ -53,7 +54,7 @@ const getProfile = () => async dispatch => {
     }
 }
 
-const createProfile = (profileObj, history, edit = false) => async dispatch => {
+export const createProfile = (profileObj, history, edit = false) => async dispatch => {
     const token = localStorage.getItem('token');
     if (token) {
         setAuthToken(token);
@@ -125,7 +126,7 @@ const createProfile = (profileObj, history, edit = false) => async dispatch => {
     }
 }
 
-const addEducation = (educationObj) => async dispatch => {
+export const addEducation = (educationObj) => async dispatch => {
     const token = localStorage.getItem('token');
     if (token) {
         setAuthToken(token);
@@ -155,7 +156,7 @@ const addEducation = (educationObj) => async dispatch => {
     }
 }
 
-const addExperience = (experienceObj) => async dispatch => {
+export const addExperience = (experienceObj) => async dispatch => {
     const token = localStorage.getItem('token');
     if (token) {
         setAuthToken(token);
@@ -185,7 +186,7 @@ const addExperience = (experienceObj) => async dispatch => {
     }
 }
 
-const deleteExperience = (id) => async dispatch => {
+export const deleteExperience = (id) => async dispatch => {
     try {
         const token = localStorage.getItem('token');
         if (token) {
@@ -207,7 +208,7 @@ const deleteExperience = (id) => async dispatch => {
     }
 }
 
-const deleteEducation = (id) => async dispatch => {
+export const deleteEducation = (id) => async dispatch => {
     try {
         const token = localStorage.getItem('token');
         if (token) {
@@ -228,4 +229,19 @@ const deleteEducation = (id) => async dispatch => {
     }
 }
 
-export {getProfile, createProfile, addEducation, addExperience, deleteExperience, deleteEducation};
+export const getProfiles = () => async dispatch => {
+    try {
+        dispatch({type: LOADING});
+        const response = await axios.get("api/profile/profiles")
+        if(response.status == 200){
+            dispatch({
+                type: GET_PROFILES,
+                payload: response.data
+            })
+        }
+        dispatch({type: LOADING_DONE});
+    } catch (error) {
+        console.log(error);
+    }
+}
+

@@ -8,13 +8,14 @@ import {
     LOADING,
     CREATE_EXPERIENCE_FAILED,
     LOADING_DONE,
-    UPDATE_PROFILE
+    UPDATE_PROFILE,
+    GET_PROFILES
 
 } from '../actions/types';
 
 const initialState = {
     profile: null,
-    profiles: [],
+    profiles: null,
     loading: true,
     error: null
 }
@@ -88,6 +89,15 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 profile: payload.profile,
+                loading: false
+            }
+        }
+
+        case GET_PROFILES: {
+            console.log(payload)
+            return {
+                ...state,
+                profiles: payload,
                 loading: false
             }
         }

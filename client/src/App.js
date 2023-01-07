@@ -16,6 +16,7 @@ import CreateProfile from './components/dashboard/CreateProfile';
 import EditProfile from './components/dashboard/EditProfile';
 import AddEducation from './components/dashboard/AddEducation';
 import AddExperience from './components/dashboard/AddExperience';
+import Profiles from './components/Profiles/Profiles';
 
 if (localStorage.token) {
     setAuthToken(localStorage.token)
@@ -34,6 +35,7 @@ const App = () => {
                     <Route exact path='/' element={< Landing />}/>
                     <Route exact path="/login" element={< Login />}/>
                     <Route exact path="/register" element={< Register />}/>
+                    <Route exact path="/profiles" element={< Profiles />}/>
 
                     <Route
                         exact
