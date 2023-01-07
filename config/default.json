@@ -1,4 +1,6 @@
 {
     "MongoURI": "mongodb+srv://aditya:aditya002@cluster0.pklje.mongodb.net/?retryWrites=true&w=majority",
-    "jwtSecret": "randomString1"
+    "jwtSecret": "randomString1",
+    "clientId" : "c8b05f8e1cd86841ec9e",
+    "clientSecret" : "161cc3b7dc53b3aff5dcf2c06bb4ed230499a3ff"
 }

@@ -19,7 +19,6 @@ function Education(props) {
       <td>{getDateString(ed.from)}</td>
       <td>{getDateString(ed.to)}</td>
       <td><button type='button' onClick={() => onDeleteHandler(ed._id)} className='btn btn-danger'>Delete</button></td>
-
     </tr>
   ))
 
@@ -46,4 +45,10 @@ function Education(props) {
   );
 }
 
-export default connect(null, {deleteEducation}) (Education);
+const mapStateToProps = state => {
+  return {
+    education: state.profileReducer.profile.education
+  }
+}
+
+export default connect(mapStateToProps, {deleteEducation}) (Education);
