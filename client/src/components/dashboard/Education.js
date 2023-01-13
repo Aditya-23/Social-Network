@@ -12,7 +12,10 @@ function Education(props) {
     props.deleteEducation(id);
  }
 
-  const education = props.education.map(ed => (
+ if(props.educations == []){
+  return null
+ }
+  const education = props.educations.map(ed => (
     <tr>
       <td>{ed.school}</td>
       <td>{ed.degree}</td>
@@ -24,6 +27,10 @@ function Education(props) {
 
   return (
     <div className='container'>
+      <h2>
+            Education
+        </h2>
+        <p>Add education to improve your profile</p>
       <div className='row'>
         <div className='col-8'>
           <table className='table'>

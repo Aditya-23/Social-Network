@@ -12,6 +12,7 @@ function Experience(props) {
      props.deleteExperience(id);
   }
 
+
   const experiences = props.experiences.map(experience => (
     <tr>
       <td>{experience.company}</td>
@@ -24,6 +25,10 @@ function Experience(props) {
 
   return (
     <div className='container'>
+        <h2>
+            Experiences
+        </h2>
+        <p>Add experiences to improve your profile</p>
       <div className='row'>
         <div className='col-8'>
           <table className='table'>

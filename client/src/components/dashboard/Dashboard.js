@@ -30,9 +30,9 @@ const Dashboard = ({
     }
     if (profileReducer.loading || auth.loading) {
         return (
-            <Fragment>
-                <Spinner/>
-            </Fragment>
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
         )
     }
     return (
@@ -44,7 +44,6 @@ const Dashboard = ({
                 ? <Fragment>
                         <h3>
                             You haven't created a profile yet, Create now :
-
                         </h3>
                         <button onClick={() => handleNavigation()}>
                             Create Profile
@@ -81,14 +80,10 @@ const Dashboard = ({
                 </Fragment>
         }
         <br></br>
-        <h2>
-            Experiences
-        </h2>
+        
         {profileReducer.profile != null ? <Experience experiences={profileReducer.profile.experience} /> : null}
-        <h2>
-            Education
-        </h2>
-        {profileReducer.profile != null ? <Education education={profileReducer.profile.education} /> : null}
+        
+        {profileReducer.profile != null ? <Education educations={profileReducer.profile.education} /> : null}
         
         </div>
     )

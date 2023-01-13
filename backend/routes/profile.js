@@ -34,6 +34,7 @@ Router.post('/', auth, async(req, res) => {
             profile.education = req.body.education;
         
         profile.socialmedia = req.body.socialmedia;
+        profile.avatar = user.avatar;
 
         //other details
         if (req.body.company) 

@@ -34,6 +34,7 @@ export const getProfile = () => async dispatch => {
                     profile: response.data
                 }
             })
+            
         } else if (response.status == 400 || response.status == 401 || response.status == 500) {
             dispatch({
                 type: GET_PROFILE_ERROR,
@@ -51,6 +52,7 @@ export const getProfile = () => async dispatch => {
                 error: "Some Other Error, Need to investigate!"
             }
         })
+        dispatch({type: LOADING_DONE});
     }
 }
 
@@ -232,7 +234,7 @@ export const deleteEducation = (id) => async dispatch => {
 export const getProfiles = () => async dispatch => {
     try {
         dispatch({type: LOADING});
-        const response = await axios.get("api/profile/profiles")
+        const response = await axios.get("api/profile/profiles");
         if(response.status == 200){
             dispatch({
                 type: GET_PROFILES,

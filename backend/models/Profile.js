@@ -31,6 +31,9 @@ const profileSchema = new mongoose.Schema({
     email: {
         type: String
     },
+    avatar : {
+        type : String
+    },
     experience : [
         {
             title : {

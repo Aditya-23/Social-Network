@@ -233,7 +233,7 @@ function CreateProfile(props) {
 }
 
 const mapStateToProps = state => {
-    return {auth: state.auth}
+    return {auth: state.auth, alert: state.alertReducer}
 };
 
 export default connect(mapStateToProps, {createProfile, removeAlert})(CreateProfile);
