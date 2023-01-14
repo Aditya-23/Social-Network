@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Button } from 'react-bootstrap';
 
 export default function ProfileItem({profile}) {
     var skills;
@@ -11,22 +12,42 @@ export default function ProfileItem({profile}) {
         <div className='container'>
             <div className='col col-6' >
                 <div className="card mb-3">
-                    <div className="row g-0" style={{height: 250}}>
+                    <div className="row g-0" style={{height: 200}}>
                         <div className="col-md-4">
                             <img src={profile.avatar} className="img-fluid rounded-start" alt="..."/>
                         </div>
-                        <div className="col-md-8">
+                        
+                        <div className="col-md-4">
+                            <div className='card-body'>
+                            <h5 className="card-title">{profile.fullName}</h5>
+                            
+                            <div className='row'>
+                                <div className='col'>
+                                    <p>{profile.bio}</p>
+                                </div>
+                            </div>
+                            <br>
+                            </br>
+                            <div className='row'>
+                                <div className='col'>
+                                    <button className='btn btn-success'>View Profile</button>
+                                </div>
+                            </div>
+                        </div>
+                            
+                        </div>
+                        <div className="col-md-4">
                             <div className="card-body">
-                                <h5 className="card-title">{profile.fullName}</h5>
+                                <h5 className="card-title">Skills</h5>
                                 <>
                                     <ol>
                                         {skills}
                                     </ol>
                                 </>
-                                {/* <p class="card-text">
-                                    <small class="text-muted">Last updated 3 mins ago</small>
-                                </p> */}
+                                
                             </div>
+                            <br></br>
+                            
                         </div>
                     </div>
                 </div>
