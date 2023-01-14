@@ -17,13 +17,21 @@ function Profiles(props) {
         )
     }
 
+    if(props.profileReducer.loading){
+        return (
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        )
+    }
+
     return (
-        <>
-            <h1>Profiles</h1>
+        <div className='container'>
+            <h2>Developers around you : </h2>
             <ul>
                 {profilesToDisplay}
             </ul>
-        </>
+        </div>
     );
 }
 
