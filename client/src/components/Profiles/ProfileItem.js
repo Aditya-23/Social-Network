@@ -40,7 +40,7 @@ export default function ProfileItem({profile}) {
                         </div>
                         <div className="col-md-4">
                             <div className="card-body">
-                                <h5 className="card-title">Skills</h5>
+                                <h5 className="card-title">Top Skills</h5>
                                 <>
                                     <ol>
                                         {skills}
