@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import "./css/main.css"
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import Login from './components/Login';
@@ -17,6 +18,7 @@ import EditProfile from './components/dashboard/EditProfile';
 import AddEducation from './components/dashboard/AddEducation';
 import AddExperience from './components/dashboard/AddExperience';
 import Profiles from './components/Profiles/Profiles';
+import Profile from './components/Profile/Profile';
 
 if (localStorage.token) {
     setAuthToken(localStorage.token)
@@ -36,6 +38,7 @@ const App = () => {
                     <Route exact path="/login" element={< Login />}/>
                     <Route exact path="/register" element={< Register />}/>
                     <Route exact path="/profiles" element={< Profiles />}/>
+                    <Route exact path="/profile/:id" element={< Profile />}/>
 
                     <Route
                         exact

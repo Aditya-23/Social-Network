@@ -89,6 +89,23 @@ Router.get("/profiles", async(req, res) => {
     }
 })
 
+//  @GET    Get a profile using the user Id.  public
+Router.get("/public/:id", async(req, res) => {
+    try {
+        const profile = await Profile.findOne({user: req.params.id});
+        if (!profile) 
+            return res.status(400).json({msg: "Could not find the profile"});
+        return res
+            .status(200)
+            .json(profile);
+    } catch (error) {
+        console.log(error)
+        return res
+            .status(500)
+            .json({msg: "Internal server error!"});
+    }
+});
+
 //  @GET    Get a profile using the user Id.  private
 Router.get("/", auth, async(req, res) => {
     try {

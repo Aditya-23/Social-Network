@@ -7,6 +7,7 @@ import {
     CREATE_EDUCATION_FAILED,
     CREATE_EXPERIENCE,
     CREATE_EXPERIENCE_FAILED,
+    GET_INDIVIDUAL_PROFILE,
     GET_PROFILE,
     GET_PROFILES,
     GET_PROFILE_ERROR,
@@ -247,3 +248,20 @@ export const getProfiles = () => async dispatch => {
     }
 }
 
+
+export const getProfileById = (id) => async dispatch => {
+    try {
+        dispatch({type: LOADING});
+        console.log("Hereher")
+        const response = await axios.get("/api/profile/public/" + id);
+        if (response.status == 200){
+            dispatch({
+                type: GET_INDIVIDUAL_PROFILE,
+                payload: response.data
+            })
+        }
+        dispatch({type: LOADING_DONE})
+    } catch (error) {
+        console.log(error);
+    }
+}

@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Button } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function ProfileItem({profile}) {
     var skills;
@@ -8,6 +9,7 @@ export default function ProfileItem({profile}) {
             .skills
             .map(skill => <li>{skill}</li>)
     }
+    const navigate = useNavigate();
     return (
         <div className='container'>
             <div className='col col-6' >
@@ -30,7 +32,7 @@ export default function ProfileItem({profile}) {
                             </br>
                             <div className='row'>
                                 <div className='col'>
-                                    <button className='btn btn-success'>View Profile</button>
+                                    <Link to={"/profile/" + profile.user}><button className='btn btn-success'>View Profile</button></Link>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +48,7 @@ export default function ProfileItem({profile}) {
                                 </>
                                 
                             </div>
-                            <br></br>
+                        <br></br>
                             
                         </div>
                     </div>

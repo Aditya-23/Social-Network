@@ -19,7 +19,7 @@ const Dashboard = ({
     useEffect(() => {
         console.log("Dashboard useEffect called");
         getProfile();
-    }, []);
+    }, [getProfile]);
 
     const handleNavigation = (nav) => {
         if (profileReducer.profile) {

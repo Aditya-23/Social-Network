@@ -9,7 +9,8 @@ import {
     CREATE_EXPERIENCE_FAILED,
     LOADING_DONE,
     UPDATE_PROFILE,
-    GET_PROFILES
+    GET_PROFILES,
+    GET_INDIVIDUAL_PROFILE
 
 } from '../actions/types';
 
@@ -37,9 +38,19 @@ const profileReducer = (state = initialState, action) => {
             }
 
         case GET_PROFILE:
+            console.log(payload)
             return {
+                ...state,
                 profile: payload.profile,
                 loading: false
+            }
+
+        case GET_INDIVIDUAL_PROFILE:
+            console.log(payload)
+            return {
+                ...state,
+                profile: payload,
+                loading: false,
             }
 
         case GET_PROFILE_ERROR:
@@ -94,7 +105,6 @@ const profileReducer = (state = initialState, action) => {
         }
 
         case GET_PROFILES: {
-            console.log(payload)
             return {
                 ...state,
                 profiles: payload,
