@@ -2,16 +2,27 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import {getProfileById} from '../../actions/profile';
+import Education from './Education';
 import Experiences from './Experiences';
 
 function Profile(props) {
 
     let {id} = useParams();
     if (props.profileReducer.profile) {
-        var {fullName, bio, status, skills, avatar, experience} = props.profileReducer.profile
+        var {
+            fullName,
+            bio,
+            status,
+            skills,
+            avatar,
+            experience,
+            education
+        } = props.profileReducer.profile
     }
 
-    var skillsList = skills ? skills.map(skill => <li>{skill}</li>) : null;
+    var skillsList = skills
+        ? skills.map(skill => <li>{skill}</li>)
+        : null;
 
     useEffect(() => {
         props.getProfileById(id);
@@ -63,20 +74,7 @@ function Profile(props) {
             </div>
             {/* put education component here  */}
             <div className='row'>
-                <div className='col-10 profile-style'>
-                    <br></br>
-                    <div class="card text-center">
-                        <div class="card-header">
-                            Education
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{fullName}</h5>
-                            <p class="card-text">{bio}</p>
-                            <p class="card-text">Currently : {status}</p>
-                        </div>
-
-                    </div>
-                </div>
+                <Education education={education}/>
             </div>
 
             {/* put github component here  */}
